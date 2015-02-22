@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 
 public class MainActivity extends Activity {
-   
+
     public static final String TAG="MainActivity";
     public static final int WIDTH_OF_SCREEN = 50;
 
