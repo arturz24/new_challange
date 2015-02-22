@@ -2,13 +2,17 @@ package com.example.artur.myapplication;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 
 public class MainActivity extends Activity {
+   
     public static final String TAG="MainActivity";
+    public static final int WIDTH_OF_SCREEN = 50;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,5 +41,29 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void doCalculations(View view) {
+        TextView resultLabel=(TextView)findViewById(R.id.resultTextView);
+        EditText input=(EditText)findViewById(R.id.number);
+
+        int value=Integer.parseInt(input.getText().toString());
+
+        resultLabel.setText(Integer.toString(getResult(value)));
+    }
+
+    private int getResult(int value)
+    {
+        int result=0;
+        result = doCalculationLoop(result);
+        result=result* WIDTH_OF_SCREEN+value;
+        return result;
+    }
+
+    private int doCalculationLoop(int result) {
+        for(int i=0;i<5;i++) {
+            result += i;
+        }
+        return result;
     }
 }
