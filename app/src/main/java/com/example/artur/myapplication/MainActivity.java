@@ -1,7 +1,9 @@
 package com.example.artur.myapplication;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,12 +46,16 @@ public class MainActivity extends Activity {
     }
 
     public void doCalculations(View view) {
-        TextView resultLabel=(TextView)findViewById(R.id.resultTextView);
-        EditText input=(EditText)findViewById(R.id.number);
+        TextView resultLabel = (TextView) findViewById(R.id.resultTextView);
+        EditText input = (EditText) findViewById(R.id.number);
+        int value;
+        try {
+            value=Integer.parseInt(input.getText().toString());
+            resultLabel.setText(Integer.toString(getResult(value)));
 
-        int value=Integer.parseInt(input.getText().toString());
-
-        resultLabel.setText(Integer.toString(getResult(value)));
+        } catch (NumberFormatException e){
+            Log.d(TAG,"zla liczba");
+        }
     }
 
     private int getResult(int value)
@@ -65,5 +71,20 @@ public class MainActivity extends Activity {
             result += i;
         }
         return result;
+    }
+
+    public void testThread(View view) {
+        Thread thread=new Thread(new MyThread(this,new Object[100]));
+        thread.start();
+    }
+
+    public void testAsyncThread(View view) {
+        MyAsyncTask myAsyncTask=new MyAsyncTask(this);
+        myAsyncTask.execute(new String[50]);
+    }
+
+    public void invokeHandler(View view) {
+        Intent intent=new Intent(this,SampleActivity.class);
+        startActivity(intent);
     }
 }
